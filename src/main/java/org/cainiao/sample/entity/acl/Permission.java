@@ -24,6 +24,10 @@ import org.cainiao.common.entity.IdBaseEntity;
 @Schema(name = "Permission", description = "权限")
 public class Permission extends IdBaseEntity {
 
+    @TableField("p_parent_id")
+    @Schema(description = "父权限 ID")
+    private Long parentId;
+
     @TableField("p_name")
     @Schema(description = "权限名")
     private String name;
