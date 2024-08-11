@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import lombok.RequiredArgsConstructor;
 import org.cainiao.sample.dao.service.RoleMapperService;
 import org.cainiao.sample.dao.service.UserMapperService;
+import org.cainiao.sample.dao.service.UserPermissionMapperService;
 import org.cainiao.sample.dao.service.UserRoleMapperService;
 import org.cainiao.sample.dto.response.GrantedRoles;
 import org.cainiao.sample.entity.acl.User;
@@ -24,6 +25,7 @@ public class UserServiceImpl implements UserService {
     private final UserMapperService userMapperService;
     private final RoleMapperService roleMapperService;
     private final UserRoleMapperService userRoleMapperService;
+    private final UserPermissionMapperService userPermissionMapperService;
 
     @Override
     public User addOrEditUser(User user) {
@@ -51,5 +53,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void grantRoles(long userId, Set<Long> roleIds) {
         userRoleMapperService.setRolesOfUser(userId, roleIds);
+    }
+
+    @Override
+    public Set<String> permissions(long userId) {
+        return userPermissionMapperService.getBaseMapper().findPermissionsByUserId(userId);
     }
 }

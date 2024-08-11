@@ -48,15 +48,21 @@ public class UserController {
     }
 
     @GetMapping("user/{userId}/granted-roles")
-    @Operation(summary = "用户角色")
+    @Operation(summary = "用户的角色ID列表以及全量角色列表")
     public GrantedRoles grantedRoles(@Parameter(description = "用户 ID", required = true) @PathVariable long userId) {
         return userService.grantedRoles(userId);
     }
 
     @GetMapping("user/{userId}/grant-roles")
-    @Operation(summary = "用户角色")
+    @Operation(summary = "授予用户角色")
     public void grantRoles(@Parameter(description = "用户 ID", required = true) @PathVariable long userId,
                            @Parameter(description = "用户角色 ID") @RequestBody Set<Long> roleIds) {
         userService.grantRoles(userId, roleIds);
+    }
+
+    @GetMapping("user/{userId}/permissions")
+    @Operation(summary = "用户权限")
+    public Set<String> permissions(@Parameter(description = "用户 ID", required = true) @PathVariable long userId) {
+        return userService.permissions(userId);
     }
 }

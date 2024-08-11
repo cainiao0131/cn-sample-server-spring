@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.cainiao.sample.dao.mapper.UserPermissionMapper">
+    <select id="findPermissionsByUserId" resultType="string">
+        select tp.p_name from (
+            select trp.t_permission_id as permission_id from (
+                select tur.ur_role_id from t_user_role tur
+                where tur.ur_user_id = #{userId}
+            ) ur_out
+            left join t_role_permission trp on trp.t_role_id = ur_out.ur_role_id
+
+            union
+
+            select tup.up_permission_id as permission_id from t_user_permission tup
+            where tup.up_user_id = #{userId}
+        ) all_p
+        left join t_permission tp on tp.id = all_p.permission_id
+    </select>
+</mapper>

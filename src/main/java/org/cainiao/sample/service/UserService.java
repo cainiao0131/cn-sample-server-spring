@@ -17,4 +17,6 @@ public interface UserService {
     GrantedRoles grantedRoles(long userId);
 
     void grantRoles(long userId, Set<Long> roleIds);
+
+    Set<String> permissions(long userId);
 }
