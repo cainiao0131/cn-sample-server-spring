@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.cainiao.sample.entity.BaseEntity;
+import org.cainiao.common.entity.IdBaseEntity;
 
 /**
  * <br />
@@ -22,7 +22,7 @@ import org.cainiao.sample.entity.BaseEntity;
 @EqualsAndHashCode(callSuper = true)
 @TableName("t_user_permission")
 @Schema(name = "UserPermission", description = "用户权限")
-public class UserPermission extends BaseEntity {
+public class UserPermission extends IdBaseEntity {
 
     @TableField("up_user_id")
     @Schema(description = "用户 ID")
