@@ -186,10 +186,11 @@ public class DDLGenerator {
     }
 
     private String getColumnName(Field field, TableField tableFieldAnnotation) {
-        if (tableFieldAnnotation != null) {
-            return tableFieldAnnotation.value();
+        if (tableFieldAnnotation == null) {
+            return convertCamelToSnake(field.getName());
         }
-        return convertCamelToSnake(field.getName());
+        String columnName = tableFieldAnnotation.value();
+        return StringUtils.hasText(columnName) ? columnName : convertCamelToSnake(field.getName());
     }
 
     private String convertCamelToSnake(String camelCase) {
