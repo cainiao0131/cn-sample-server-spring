@@ -1,5 +1,6 @@
 package org.cainiao.sample.entity.acl;
 
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -8,7 +9,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.cainiao.common.entity.IdBaseEntity;
+import org.cainiao.common.dao.ColumnDefine;
+import org.cainiao.common.dao.IdBaseEntity;
 
 /**
  * <br />
@@ -28,7 +30,8 @@ public class Permission extends IdBaseEntity {
     @Schema(description = "父权限 ID")
     private Long parentId;
 
-    @TableField("p_name")
+    @TableField(value = "p_name", insertStrategy = FieldStrategy.NOT_EMPTY)
+    @ColumnDefine(unique = true)
     @Schema(description = "权限名")
     private String name;
 

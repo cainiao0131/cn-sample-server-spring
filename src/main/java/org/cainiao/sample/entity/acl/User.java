@@ -1,5 +1,6 @@
 package org.cainiao.sample.entity.acl;
 
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -8,7 +9,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.cainiao.common.entity.IdBaseEntity;
+import org.cainiao.common.dao.ColumnDefine;
+import org.cainiao.common.dao.IdBaseEntity;
 
 /**
  * <br />
@@ -24,7 +26,8 @@ import org.cainiao.common.entity.IdBaseEntity;
 @Schema(name = "User", description = "用户")
 public class User extends IdBaseEntity {
 
-    @TableField("u_name")
+    @TableField(value = "u_name", insertStrategy = FieldStrategy.NOT_EMPTY)
+    @ColumnDefine(unique = true)
     @Schema(description = "用户名")
     private String name;
 

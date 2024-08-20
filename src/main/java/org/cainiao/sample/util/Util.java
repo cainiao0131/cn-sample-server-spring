@@ -1,7 +1,9 @@
 package org.cainiao.sample.util;
 
 import lombok.experimental.UtilityClass;
+import org.cainiao.sample.config.dao.DDLGenerator;
 
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -31,5 +33,10 @@ public class Util {
                 biggerSet.remove(smallerItem);
             }
         }
+    }
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        DDLGenerator ddlGenerator = new DDLGenerator("org.cainiao.sample.entity", "src/main/resources/sql/ddl.sql");
+        ddlGenerator.generateDDL();
     }
 }

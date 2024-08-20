@@ -1,5 +1,6 @@
 package org.cainiao.sample.entity.acl;
 
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -8,7 +9,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.cainiao.common.entity.IdBaseEntity;
+import org.cainiao.common.dao.IdBaseEntity;
 
 /**
  * <br />
@@ -24,11 +25,11 @@ import org.cainiao.common.entity.IdBaseEntity;
 @Schema(name = "UserPermission", description = "用户权限")
 public class UserPermission extends IdBaseEntity {
 
-    @TableField("up_user_id")
+    @TableField(value = "up_user_id", insertStrategy = FieldStrategy.NOT_NULL)
     @Schema(description = "用户 ID")
     private Long userId;
 
-    @TableField("up_permission_id")
+    @TableField(value = "up_permission_id", insertStrategy = FieldStrategy.NOT_NULL)
     @Schema(description = "权限 ID")
     private Long permissionId;
 }
