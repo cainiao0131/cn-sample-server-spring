@@ -31,7 +31,7 @@ public class PermissionMapperService extends ServiceImpl<PermissionMapper, Permi
             if (!StringUtils.hasText(newName)) {
                 throw new BusinessException("权限名不能为空！");
             }
-            if (count(lambdaQuery().eq(Permission::getName, newName)) > 0) {
+            if (lambdaQuery().eq(Permission::getName, newName).exists()) {
                 throw new BusinessException("权限名已存在！");
             }
             if (!save(permission)) {
@@ -57,7 +57,7 @@ public class PermissionMapperService extends ServiceImpl<PermissionMapper, Permi
             if (!StringUtils.hasText(newName)) {
                 throw new BusinessException("权限名不能为空！");
             }
-            if (count(lambdaQuery().eq(Permission::getName, newName).ne(Permission::getId, permissionId)) > 0) {
+            if (lambdaQuery().eq(Permission::getName, newName).ne(Permission::getId, permissionId).exists()) {
                 throw new BusinessException("权限名已存在！");
             }
             updateWrapper.set(Permission::getName, newName);

@@ -33,7 +33,7 @@ public class RoleMapperService extends ServiceImpl<RoleMapper, Role> implements 
             if (!StringUtils.hasText(newName)) {
                 throw new BusinessException("角色名不能为空！");
             }
-            if (count(lambdaQuery().eq(Role::getName, newName)) > 0) {
+            if (lambdaQuery().eq(Role::getName, newName).exists()) {
                 throw new BusinessException("角色名已存在！");
             }
             if (!save(role)) {
@@ -59,7 +59,7 @@ public class RoleMapperService extends ServiceImpl<RoleMapper, Role> implements 
             if (!StringUtils.hasText(newName)) {
                 throw new BusinessException("角色名不能为空！");
             }
-            if (count(lambdaQuery().eq(Role::getName, newName).ne(Role::getId, roleId)) > 0) {
+            if (lambdaQuery().eq(Role::getName, newName).ne(Role::getId, roleId).exists()) {
                 throw new BusinessException("角色名已存在！");
             }
             updateWrapper.set(Role::getName, newName);

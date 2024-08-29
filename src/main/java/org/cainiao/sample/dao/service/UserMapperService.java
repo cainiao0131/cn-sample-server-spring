@@ -37,7 +37,7 @@ public class UserMapperService extends ServiceImpl<UserMapper, User> implements 
             if (!StringUtils.hasText(newNickName)) {
                 throw new BusinessException("昵称不能为空！");
             }
-            if (count(lambdaQuery().eq(User::getName, newName)) > 0) {
+            if (lambdaQuery().eq(User::getName, newName).exists()) {
                 throw new BusinessException("用户名已存在！");
             }
             if (!save(user)) {
@@ -64,7 +64,7 @@ public class UserMapperService extends ServiceImpl<UserMapper, User> implements 
             if (!StringUtils.hasText(newName)) {
                 throw new BusinessException("用户名不能为空！");
             }
-            if (count(lambdaQuery().eq(User::getName, newName).ne(User::getId, userId)) > 0) {
+            if (lambdaQuery().eq(User::getName, newName).ne(User::getId, userId).exists()) {
                 throw new BusinessException("用户名已存在！");
             }
             updateWrapper.set(User::getName, newName);
