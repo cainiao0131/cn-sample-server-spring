@@ -3,6 +3,7 @@ package org.cainiao.sample.controller.client;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.cainiao.sample.entity.acl.Role;
 import org.cainiao.sample.service.RoleService;
@@ -18,6 +19,7 @@ import static org.cainiao.sample.dao.DaoUtil.DEFAULT_PAGE_SIZE;
  */
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "Role", description = "角色管理")
 public class RoleController {
 
     private final RoleService roleService;
