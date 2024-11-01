@@ -1,5 +1,5 @@
 /**
- * 由同一【租户】中的不同【系统】的【服务端应用】调用的接口<br />
+ * 由同一【租户】中的其它【系统】调用的接口<br />
  * 将当前应用配置为 Client Credential 类型的资源服务器，Filter Chain 的工作：<br />
  * <ol>
  *     <li>校验请求头中的 ClientId 与 ClientSecret</li>
