@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -99,8 +98,7 @@ public class UserMapperService extends ServiceImpl<UserMapper, User> implements 
             .or().like(hasKey, User::getDescription, key);
         IPage<UserInfo> page = new Page<>(current, size);
         page.setTotal(count(wrapper));
-        List<UserInfo> a = getBaseMapper().userInfos((current - 1) * size, size, wrapper);
-        page.setRecords(a);
+        page.setRecords(getBaseMapper().userInfos((current - 1) * size, size, wrapper));
         return page;
     }
 }
