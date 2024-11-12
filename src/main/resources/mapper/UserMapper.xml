@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.cainiao.sample.dao.mapper.UserMapper">
+    <resultMap id="UserInfoResultMap" type="org.cainiao.sample.dto.response.UserInfo">
+        <result column="u_name" property="name"/>
+        <result column="u_nick_name" property="nickName"/>
+        <result column="u_description" property="description"/>
+    </resultMap>
+
+    <!-- @formatter:off -->
+    <select id="userInfos" resultMap="UserInfoResultMap">
+        select
+            tu_out.id,
+            max(tu_out.u_name) as u_name,
+            max(tu_out.u_nick_name) as u_nick_name,
+            max(tu_out.u_description) as u_description,
+            max(tu_out.created_by) as created_by,
+            max(tu_out.created_at) as created_at,
+            max(tu_out.updated_by) as updated_by,
+            max(tu_out.updated_at) as updated_at,
+            max(tur.updated_at) as last_granted_role_time
+        from
+            (
+            select
+                tu.id,
+                tu.u_name,
+                tu.u_nick_name,
+                tu.u_description,
+                tu.created_by,
+                tu.created_at,
+                tu.updated_by,
+                tu.updated_at
+            from
+                t_user tu
+            ${ew.customSqlSegment}
+            LIMIT #{size} OFFSET #{offset}
+        ) tu_out
+        left join t_user_role tur on
+            tur.ur_user_id = tu_out.id
+        group by
+            tu_out.id
+        order by updated_at desc
+    </select>
+    <!-- @formatter:on -->
+</mapper>

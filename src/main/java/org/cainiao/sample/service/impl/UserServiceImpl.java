@@ -7,6 +7,7 @@ import org.cainiao.sample.dao.service.UserMapperService;
 import org.cainiao.sample.dao.service.UserPermissionMapperService;
 import org.cainiao.sample.dao.service.UserRoleMapperService;
 import org.cainiao.sample.dto.response.GrantedRoles;
+import org.cainiao.sample.dto.response.UserInfo;
 import org.cainiao.sample.entity.acl.User;
 import org.cainiao.sample.service.UserService;
 import org.springframework.stereotype.Service;
@@ -28,12 +29,17 @@ public class UserServiceImpl implements UserService {
     private final UserPermissionMapperService userPermissionMapperService;
 
     @Override
+    public IPage<UserInfo> userInfos(int current, int size, String key) {
+        return userMapperService.searchPageInfo(current, size, key);
+    }
+
+    @Override
     public User addOrEditUser(User user) {
         return userMapperService.saveOrUpdateNewName(user);
     }
 
     @Override
-    public IPage<User> userPage(int current, int size, String key) {
+    public IPage<User> users(int current, int size, String key) {
         return userMapperService.searchPage(current, size, key);
     }
 

@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.cainiao.sample.dto.response.GrantedRoles;
+import org.cainiao.sample.dto.response.UserInfo;
 import org.cainiao.sample.entity.acl.User;
 import org.cainiao.sample.service.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -35,12 +36,22 @@ public class UserController {
 
     @GetMapping("users")
     @Operation(summary = "分页模糊查询用户列表")
-    public IPage<User> userPage(
-        @Parameter(description = "当前页") @RequestParam(required = false, defaultValue = DEFAULT_PAGE) int current,
-        @Parameter(description = "每页显示记录数") @RequestParam(required = false, defaultValue = DEFAULT_PAGE_SIZE) int size,
-        @Parameter(description = "搜索关键词") @RequestParam(required = false) String key) {
+    public IPage<User> users(
+        @Parameter(description = "当前页") @RequestParam(defaultValue = DEFAULT_PAGE) int current,
+        @Parameter(description = "每页显示记录数") @RequestParam(defaultValue = DEFAULT_PAGE_SIZE) int size,
+        @Parameter(description = "搜索关键词") @RequestParam String key) {
 
-        return userService.userPage(current, size, key);
+        return userService.users(current, size, key);
+    }
+
+    @GetMapping("user-infos")
+    @Operation(summary = "分页模糊查询用户列表")
+    public IPage<UserInfo> userInfos(
+        @Parameter(description = "当前页") @RequestParam(defaultValue = DEFAULT_PAGE) int current,
+        @Parameter(description = "每页显示记录数") @RequestParam(defaultValue = DEFAULT_PAGE_SIZE) int size,
+        @Parameter(description = "搜索关键词") @RequestParam String key) {
+
+        return userService.userInfos(current, size, key);
     }
 
     @GetMapping("user/{userId}")
@@ -50,7 +61,7 @@ public class UserController {
     }
 
     @GetMapping("user/{userId}/granted-roles")
-    @Operation(summary = "用户的角色ID列表以及全量角色列表")
+    @Operation(summary = "用户的角色ID列表、全量角色列表")
     public GrantedRoles grantedRoles(@Parameter(description = "用户 ID", required = true) @PathVariable long userId) {
         return userService.grantedRoles(userId);
     }

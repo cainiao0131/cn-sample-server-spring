@@ -12,6 +12,8 @@ import lombok.experimental.SuperBuilder;
 import org.cainiao.common.dao.ColumnDefine;
 import org.cainiao.common.dao.IdBaseEntity;
 
+import java.io.Serial;
+
 /**
  * <br />
  * <p>
@@ -26,6 +28,9 @@ import org.cainiao.common.dao.IdBaseEntity;
 @Schema(name = "User", description = "用户")
 public class User extends IdBaseEntity {
 
+    @Serial
+    private static final long serialVersionUID = 642571091807786970L;
+    
     @TableField(value = "u_name", insertStrategy = FieldStrategy.NOT_EMPTY)
     @ColumnDefine(unique = true)
     @Schema(description = "用户名")
